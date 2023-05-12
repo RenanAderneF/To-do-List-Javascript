@@ -1,0 +1,139 @@
+body {
+
+    margin: 0px;
+    max-height: 100vh;
+    background: lightblue url(imgs/waterfall.jpg) no-repeat center;    
+    background-size: cover;
+}
+
+#listaTarefas {
+
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+}
+
+#pesquisaFiltro {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#blocoFiltro {
+
+    width: 100%;
+    padding-left: 10px;
+
+}
+
+h1 {
+
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    font-variant: small-caps;
+
+}
+
+#formSuperior {
+
+    margin: auto;
+    max-width: 400px;
+    padding: 25px 15px 30px 15px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: white;
+}
+
+#formSuperiorArredondado {
+
+    margin: auto;
+    max-width: 400px;
+    padding: 25px 15px 30px 15px;
+    border-radius: 20px 20px 20px 20px;
+    background-color: white;
+}
+
+button  {
+
+    border: 1px solid lightblue; 
+}
+
+button i {
+
+    pointer-events: none; /* Impede que o ícone obstrua a interação do botão */
+}
+
+button:hover {
+
+    background-color: rgb(52, 49, 223);
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.campoLista {
+
+    margin: 5px 0px 20px 0px;
+    border: 1px solid lightblue;
+}
+
+.campoLista:focus {
+
+    outline: none;
+}
+
+.hideTemplate {
+
+    display: none;
+}
+
+.hide {
+
+    display: none;
+}
+
+#cancelaEdit {
+
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+#formInferior {
+
+    max-width: 400px;
+    margin: auto;
+    padding: 15px;
+    background-color: rgba(9, 9, 27, 0.342);
+    border-radius: 0px 0px 20px 20px;
+}
+
+.tarefaAtiva {
+
+    padding: 4px 10px 10px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.tarefaCompleta {
+
+    transition: 1s;
+    background-color: rgb(52, 49, 223);
+    color: rgb(255, 255, 255);
+}
+
+.tarefaCompleta > h4 {
+
+    transition: 1.2s;
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+
+
+
+
+

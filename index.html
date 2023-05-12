@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title> Lista de Tarefas (HTML/CSS/JS) </title>
+</head>
+<body>
+    
+<H1> Lista de Tarefas </H1>
+ 
+    <div id="formSuperior">
+    
+        <form>
+    
+                <div id="blocoCriaTarefa">
+                    
+                    <label for "campoCriaTarefa"> Que tarefa deseja realizar? </label>
+                    <input type="text" id="campoCriaTarefa" name="campoCriaTarefa" class="campoLista" placeholder="Crie sua tarefa">
+                    <button type = "submit" name="tarefa">
+                    <i class="fa-thin fa-plus"></i>
+                    </button>
+                
+                </div>
+    
+    
+                <div id="blocoEditaTarefa" class="hide">
+                    
+                    <label for "campoEditaTarefa"> Edite uma tarefa: </label>
+                    <input type="text" id= "campoEditaTarefa" name="campoEditaTarefa" class="campoLista" >
+                    <button type = "submit" name="campoEditaTarefa">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                    <br>
+                    <button type="button" id="cancelaEdit"> Cancelar </button>
+
+                </div>
+    
+                <div id="blocoFiltro">
+                    
+                    Filtrar:
+                    <select id="filtrar" class="campoLista" >
+    
+                        <option value="all"> Todos </option>
+                        <option value="done"> Feitas </option>
+                        <option value="to-do"> À fazer </option>
+    
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+            <div id="formInferior">
+        
+                <div class="tarefaCompleta hide"></div>
+
+                <div class="tarefaAtiva hideTemplate">
+                    
+                    <h4> Ir para a academia </h4>
+                    
+                    <button type = "button" class="concluiTarefa">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+
+                    <button type "button" class="editaTarefa">
+                        <i class="fa-solid fa-pencil"></i>
+                    </button>
+                    
+                    <button type = "button" class="deletaTarefa">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+        
+        
+            </div>
+    
+    </form>
+
+</body>
+</html>
