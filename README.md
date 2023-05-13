@@ -13,7 +13,7 @@ I decided to do a to-do list so i could practice:
 
 ## Acessing the project
 
-View deployment from Github Pages:
+View deployment from Github Pages: https://renanadernef.github.io/To-do-List-Javascript/
 
 ## Main screen:
 
