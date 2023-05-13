@@ -17,22 +17,22 @@ View deployment from Github Pages: https://renanadernef.github.io/To-do-List-Jav
 
 ## Main screen:
 
-![image](https://github.com/RenanAderneF/Lista-To-Do-Javascript/assets/108879679/613ff617-3b2c-4611-b0aa-a6da137c580f)
+![image](https://github.com/RenanAderneF/To-do-List-Javascript/assets/108879679/d6252b04-9aa0-48c8-89fe-2d289c92d210)
 
 ## Task created:
 
-![image](https://github.com/RenanAderneF/Lista-To-Do-Javascript/assets/108879679/cc198243-3864-4541-9803-c679a1e72e64)
+![image](https://github.com/RenanAderneF/To-do-List-Javascript/assets/108879679/c8f96bc1-a82f-48a1-8c2e-0c4d45b815d2)
 
 ## Task completed:
 
-![image](https://github.com/RenanAderneF/Lista-To-Do-Javascript/assets/108879679/cff2b610-c362-4f4e-aeca-2d993d373592)
+![image](https://github.com/RenanAderneF/To-do-List-Javascript/assets/108879679/f803816b-0e57-4039-b78b-11fee93be72e)
 
 ## Edit task screen:
 
-![image](https://github.com/RenanAderneF/Lista-To-Do-Javascript/assets/108879679/4266fcde-9b0b-4742-89f0-9a604b46c12f)
+![image](https://github.com/RenanAderneF/To-do-List-Javascript/assets/108879679/62fffc09-0e03-4be0-8c7b-b0c30f2053db)
 
 ## Task edited:
 
-![image](https://github.com/RenanAderneF/Lista-To-Do-Javascript/assets/108879679/3da8bada-8adb-44eb-ac31-f3a965c2c807)
+![image](https://github.com/RenanAderneF/To-do-List-Javascript/assets/108879679/92f78a45-ea9b-4e46-b00d-1afcce04dbe7)
 
 
