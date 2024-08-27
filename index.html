@@ -17,68 +17,45 @@
     
         <form>
     
-                <div id="blocoCriaTarefa">
-                    
-                    <label for "campoCriaTarefa"> What do you want to do? </label>
-                    <input type="text" id="campoCriaTarefa" name="campoCriaTarefa" class="campoLista" placeholder="Create your task">
-                    <button type = "submit" name="tarefa">
-                    <i class="fa-thin fa-plus"></i>
-                    </button>
+            <div id="blocoCriaTarefa">
                 
-                </div>
-    
-    
-                <div id="blocoEditaTarefa" class="hide">
-                    
-                    <label for "campoEditaTarefa"> Edit a task: </label>
-                    <input type="text" id= "campoEditaTarefa" name="campoEditaTarefa" class="campoLista" >
-                    <button type = "submit" name="campoEditaTarefa">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-                    <br>
-                    <button type="button" id="cancelaEdit"> Cancel </button>
+                <label for campoCriaTarefa> What do you want to do? </label>
+                <input type="text" id="campoCriaTarefa" name="campoCriaTarefa" class="campoLista" placeholder="Create your task">
+                <button type = "button" id="btnCriaTarefa">
+                <i class="fa-thin fa-plus"></i>
+                </button>
+            
+            </div>
 
-                </div>
+
+            <div id="blocoEditaTarefa" class="hide">
+                
+                <label for campoEditaTarefa> Edit a task: </label>
+                <input type="text" id= "campoEditaTarefa" class="campoLista" >
+                <button type = "button" id="btnConfirmaEdit">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                <br>
+                <button type="button" id="btnCancelaEdit"> Cancel </button>
+
+            </div>
+
+            <div id="blocoFiltro">
+                
+                Filter:
+                <select id="filtrar" class="campoLista" >
+
+                    <option value="all"> All </option>
+                    <option value="done"> Done </option>
+                    <option value="to-do"> To do </option>
+
+                </select>
     
-                <div id="blocoFiltro">
-                    
-                    Filter:
-                    <select id="filtrar" class="campoLista" >
-    
-                        <option value="all"> All </option>
-                        <option value="done"> Done </option>
-                        <option value="to-do"> To do </option>
-    
-                    </select>
-                </div>
             </div>
         </form>
     </div>
     
-            <div id="formInferior">
-        
-                <div class="tarefaCompleta hide"></div>
-
-                <div class="tarefaAtiva hideTemplate">
-                    
-                    <h4> Go gym </h4>
-                    
-                    <button type = "button" class="concluiTarefa">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-
-                    <button type "button" class="editaTarefa">
-                        <i class="fa-solid fa-pencil"></i>
-                    </button>
-                    
-                    <button type = "button" class="deletaTarefa">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-
-                </div>
-        
-        
-            </div>
+            <div id="formInferior"></div>
     
     </form>
 

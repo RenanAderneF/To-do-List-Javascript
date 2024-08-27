@@ -1,56 +1,35 @@
-//Seleção de elementos: Nesse treço, selecionaremos todos os elementos presentes no código HTML, a fim de podermos manipulá-los com Javascript, criando eventos personalizados. Isso é feito criando uma variável que recebe o método document.querySelector e o elemento em questão entre parênteses.
-
-const blocoCriaTarefa = document.querySelector("#blocoCriaTarefa");
-
-const campoCriaTarefa = document.querySelector("#campoCriaTarefa");
-
-const tarefas = document.querySelectorAll(".tarefaAtiva,  .tarefaCompleta");
-
-let numeroTotalTarefas = localStorage.length;
-
-let posicaoTarefa = 0;
-
-const entradaCriaTarefa = document.querySelector("#entradaCriaTarefa");
-
-const blocoEditaTarefa = document.querySelector("#blocoEditaTarefa");
-
-const campoEditaTarefa = document.querySelector("#campoEditaTarefa")
-
-let tituloEditar;
-
-let elementoEditar;
-
-const cancelaEdit = document.querySelector("#cancelaEdit");
-
-const blocoFiltro = document.querySelector("#blocoFiltro");
-
-const campoFiltro = document.querySelector("#filtrar");
+// Formulário superior: 
 
 const formSuperior = document.querySelector("#formSuperior");
-
 const formInferior = document.querySelector("#formInferior");
+const campoCriaTarefa = document.querySelector("#campoCriaTarefa");
+const campoEditaTarefa = document.querySelector("#campoEditaTarefa");
+const blocoFiltro = document.querySelector("#blocoFiltro");
+const btnCriaTarefa = document.querySelector("#btnCriaTarefa");
 
+// Botões da tarefa ativa:
+
+const btnConcluiTarefa = document.querySelectorAll(".btnConcluiTarefa");
+const btnEditaTarefa = document.querySelectorAll(".btnEditaTarefa");
+const btnDeletaTarefa = document.querySelectorAll(".btnDeletaTarefa");
+
+// Botões do formulário de edição:
+
+const btnConfirmaEdit =  document.querySelector("#btnConfirmaEdit");
+const btnCancelaEdit =  document.querySelector("#btnCancelaEdit");
+
+
+// Variáveis globais
+
+let itensArray = localStorage.getItem("items") ? JSON.parse(localStorage) : [];
+let posicaoTarefa = 0;
 let estadoForm = 1;
-
-const tarefaAtiva = document.querySelector(".tarefaAtiva");
-
-const icone = document.querySelector("i");
-
-const concluiTarefa = document.querySelector(".concluiTarefa");
-
-const editaTarefa = document.querySelector(".editaTarefa");
-
-const deletaTarefa = document.querySelector(".deletaTarefa");
-
-const tarefaCompleta = document.querySelector(".tarefaCompleta");
-
-const filtro = document.querySelector("#filtrar");
-
 let opcaoFiltro;
+let tarefaSelecionada;
+ 
+// Funções
 
-//Funções
-
-const salvaTarefa = (text) => { //Função para criar elementos HTML de uma nova tarefa.
+const criaTarefa = (textoTitulo) => { //Função para criar elementos HTML de uma nova tarefa.
 
     //Bloco de criar tarefa:
 
@@ -60,43 +39,87 @@ const salvaTarefa = (text) => { //Função para criar elementos HTML de uma nova
     //Cabeçalho da tarefa criada:
 
     const tarefaTitulo = document.createElement("h4");
-    tarefaTitulo.innerText = text;
+    tarefaTitulo.innerText = textoTitulo;
     tarefaAtiva.appendChild(tarefaTitulo);
 
     //Botão para concluir tarefa:
 
     const concluiTarefa = document.createElement("button");
-    concluiTarefa.classList.add("concluiTarefa");
+    concluiTarefa.classList.add("btnConcluiTarefa");
     concluiTarefa.innerHTML = '<i class="fa-solid fa-check"></i>'
     tarefaAtiva.appendChild(concluiTarefa);
 
     //Botão para editar tarefa:
 
     const editaTarefa = document.createElement("button");
-    editaTarefa.classList.add("editaTarefa");
+    editaTarefa.classList.add("btnEditaTarefa");
     editaTarefa.innerHTML = '<i class="fa-solid fa-pencil"></i>'
     tarefaAtiva.appendChild(editaTarefa);
 
     //Botão para excluir tarefa:
 
     const deletaTarefa = document.createElement("button");
-    deletaTarefa.classList.add("deletaTarefa");
+    deletaTarefa.classList.add("btnDeletaTarefa");
     deletaTarefa.innerHTML = '<i class="fa-solid fa-trash"></i>'
     tarefaAtiva.appendChild(deletaTarefa);
 
-    formInferior.appendChild(tarefaAtiva);  //O bloco de tarefa ativa e seus respectivos elementos filho acrescentados, são acrescentados a div do formulário inferior. Sem esse comando, nada do que foi criado e acrescentado pode aparecer na página.
+    //O bloco de tarefa ativa e seus respectivos elementos filho são acrescentados a div do formulário inferior. Sem esse comando, nada do que foi criado e acrescentado pode aparecer na página.
+    formInferior.appendChild(tarefaAtiva);  
  
-    console.log(`Tarefa "${tarefaAtiva.innerText}" criada.`);
+    //Salvando no Local Storage:
 
-    localStorage.setItem(posicaoTarefa, tarefaTitulo.innerText); //armazena o título da tarefa na chave de posição, que é incrementada toda vez que o evento submit de "entradaCriaTarefa", é acionado.
-
-    tarefaAtiva.classList.add(posicaoTarefa);
-    
+    itensArray.push(textoTitulo);
+    localStorage.setItem("itens", JSON.stringify(itensArray));
+   
 }
 
-const trocaForm = () => {
+const editaTarefa = (e) => {
 
-   const elementoPai = formSuperior.closest("div");
+    tarefaSelecionada = e.target.closest("div");
+    console.log(tarefaSelecionada);
+    trocaForm(); //Esconde certos campos e revela o bloco referente a edição da tarefa. 
+}
+
+const concluiTarefa = (e) => {
+
+    tarefaSelecionada = e.target.closest("div");
+    let titulo = tarefaSelecionada.querySelector("h4").innerText;
+    tarefaSelecionada.classList.toggle("tarefaCompleta"); //Aplica essa classe no elemento pai com a classe "concluiTarefa" que foi interagido.
+    
+    const concluiBotaoClicado = tarefaSelecionada.querySelector(".btnConcluiTarefa");
+    const editaBotaoClicado = tarefaSelecionada.querySelector(".btnEditaTarefa");
+    const deletaBotaoClicado = tarefaSelecionada.querySelector(".btnDeletaTarefa");
+
+    //As variáveis acima selecionam os elementos de ícone, e botões de edita e exclui tarefa específicos do botão que foi pressionado, para que as mudanças não ocorram em todos os elementos com a classe "concluiTarefa".
+
+    concluiBotaoClicado.classList.toggle("hide");
+    editaBotaoClicado.classList.toggle("hide");
+    deletaBotaoClicado.classList.toggle("hide");
+    
+    let indiceTitulo = itensArray.indexOf(titulo);
+    itensArray.splice(indiceTitulo, 1);
+    localStorage.setItem("itens", JSON.stringify(itensArray));
+   
+}
+
+const deletaTarefa = (e) => {
+
+    tarefaSelecionada = e.target.closest("div");
+    titulo = tarefaSelecionada.querySelector("h4").innerText;
+   
+    tarefaSelecionada.remove();
+
+    //Removendo item do local Storage:
+
+    const indexTitulo = itensArray.indexOf(titulo);
+    itensArray.splice(indexTitulo, 1);
+    localStorage.setItem("itens", JSON.stringify(itensArray));
+
+}
+    
+const trocaForm = () => { //troca formulário de adicionar/editar.
+
+   const tarefaSelecionada = formSuperior.closest("div");
 
    blocoEditaTarefa.classList.toggle("hide");
    blocoCriaTarefa.classList.toggle("hide");
@@ -107,24 +130,31 @@ const trocaForm = () => {
 
     if(estadoForm === 1) { 
 
-        elementoPai.id = "formSuperiorArredondado"; 
+        tarefaSelecionada.id = "formSuperiorArredondado"; 
         estadoForm = 2; 
 
     } else {
 
-        elementoPai.id = "formSuperior";
+        tarefaSelecionada.id = "formSuperior";
         estadoForm = 1;
 
     }
 
 }
 
-const updateTarefa = (entradaEditaTarefa, tituloEditar, elementoEditar) => { 
+const atualizaTarefa = (e, novoTitulo) => { 
 
-    tituloEditar.innerText = entradaEditaTarefa; //O título incluso no div do "botaoClicado" recebe o texto digitado no campo de edição de tarefas.
+    let titulo = tarefaSelecionada.querySelector("h4").innerText;
+    tarefaSelecionada.querySelector("h4").innerText = novoTitulo; //O título incluso no div do "botaoClicado" recebe o texto digitado no campo de edição de tarefas.
 
-    const numClasse = elementoEditar.classList[1]; //Classe referente à chave no localStorage.
-    localStorage.setItem(numClasse, entradaEditaTarefa); //Substitui valor antigo por valor na variável "entradaEditaTarefa", no valor da chave correspondente à tarefa a ser editada.
+    //Atualizando item no Local Storage:
+
+    let tituloIndex = itensArray.indexOf(titulo);
+    console.log(`array padrão: ${itensArray}`);
+    itensArray.splice(tituloIndex, 1, novoTitulo);
+    console.log(`array pós-splice: ${itensArray}`);
+    localStorage.setItem("itens", JSON.stringify(itensArray));
+
     
 }
 
@@ -135,13 +165,13 @@ const filtraTarefa = () => {
     
     if(opcaoFiltro === "done") {
     
-        tarefasAtivas.forEach(function(tarefaAtiva){
+        tarefasAtivas.forEach((tarefaAtiva) => {
 
             tarefaAtiva.classList.add("hide");
         
         });
 
-        tarefasCompletas.forEach(function(tarefaCompleta){
+        tarefasCompletas.forEach((tarefaCompleta) => {
 
             tarefaCompleta.classList.remove("hide");
         
@@ -152,13 +182,13 @@ const filtraTarefa = () => {
 
     if(opcaoFiltro === "to-do") {
     
-        tarefasAtivas.forEach(function(tarefaAtiva){
+        tarefasAtivas.forEach((tarefaAtiva)=> {
 
             tarefaAtiva.classList.remove("hide");
         
         });
         
-        tarefasCompletas.forEach(function(tarefaCompleta){
+        tarefasCompletas.forEach((tarefaCompleta) => {
 
             tarefaCompleta.classList.add("hide");
         
@@ -169,13 +199,13 @@ const filtraTarefa = () => {
 
     if(opcaoFiltro === "all") {
     
-        tarefasAtivas.forEach(function(tarefaAtiva){
+        tarefasAtivas.forEach((tarefaAtiva) => {
 
             tarefaAtiva.classList.remove("hide");
         
         });
         
-        tarefasCompletas.forEach(function(tarefaCompleta){
+        tarefasCompletas.forEach((tarefaCompleta) => {
 
             tarefaCompleta.classList.remove("hide");
         
@@ -186,143 +216,82 @@ const filtraTarefa = () => {
 
 function verificaArmazenamento() { //Função chamada após recarregamento do conteúdo DOM.
 
-    if(localStorage.length > 0) { 
+    if(localStorage.length > 0) {
 
-        let tituloAtual;
+        let array = localStorage.getItem("itens")
+        array = JSON.parse(array);
+        console.log(array);
 
-        for(posicaoTarefa; posicaoTarefa <= numeroTotalTarefas; posicaoTarefa++) { 
+        array.forEach((item) => {
 
-            tituloAtual = localStorage.getItem(posicaoTarefa); //título da posição correspondente.
+            criaTarefa(item);
+        })
 
-            console.log(`N° da tarefa: ${posicaoTarefa}. Título: ${tituloAtual}`);
-            
-            if(tituloAtual) { //Se existe o item da posição...
+    }
+    
+    else {
 
-                console.log(`tarefa "${tituloAtual}" recarregada.`)
-                salvaTarefa(tituloAtual);
+        console.log(`Não há tarefas armazenadas no local storage.`)
 
-            }
-
-        }
-        
     }
 
 }
 
 //Eventos
 
-formSuperior.addEventListener("submit", (e) => { //ouvinte de evento de envio "submit" na parte superior da lista.
+//Delegação de evento dos botões das tarefas ativas:
 
-    e.preventDefault();
+formInferior.addEventListener("click", (e) => {
 
-    const entradaCriaTarefa = campoCriaTarefa.value; //Valor de tarefa criada armazenado.
+    if(e.target.classList.contains("btnConcluiTarefa")){
 
-    if (entradaCriaTarefa) { 
+        concluiTarefa(e);
+    }
 
-        posicaoTarefa++;
-        console.log(`"posicaoTarefa" = ${posicaoTarefa}`);
-        salvaTarefa(entradaCriaTarefa);
+    else if(e.target.classList.contains("btnEditaTarefa")){
+
+        editaTarefa(e);
+
+    }
+
+    else if(e.target.classList.contains("btnDeletaTarefa")){
+
+        deletaTarefa(e);
+    }
+
+})
+
+
+btnCriaTarefa.addEventListener("click", () => { //
+
+    const tituloTarefa = campoCriaTarefa.value; 
+
+    if (tituloTarefa) { 
+
         campoCriaTarefa.value = ""; 
-        
+        criaTarefa(tituloTarefa);
     }
 
 });
 
 
-document.addEventListener("click", (e) => { //ouvinte de evento para os botões
+btnConfirmaEdit.addEventListener("click", (e) => {
 
-    const botaoClicado = e.target; //A variável "botaoClicado" armazena o alvo do clique capturado pelo ouvinte de evento acima.
+    const novoTitulo = campoEditaTarefa.value;
+    console.log(`Título novo: ${novoTitulo}`);
 
-    const elementoPai = botaoClicado.closest("div"); //A variável "elementoPai" armazena o elemento ancestral (ou pai) mais próximo de "botaoClicado", nesse caso sendo ele especificamente uma div.
+    atualizaTarefa(e, novoTitulo); 
 
-    const tarefaTitulo = entradaCriaTarefa; //A variável "tarefaTitulo" armazena o valor armazenado na variável "entradaCriaTarefa".
+    campoEditaTarefa.value = "";
 
-    if(elementoPai && elementoPai.classList.contains("h4")) { 
+    trocaForm(); //esconde edição e exibe tela normal.
+})
 
-        tarefaTitulo = elementoPai.querySelector("h4").innerText; 
+btnCancelaEdit.addEventListener("click", (e) => { //
+    trocaForm();
+})
 
-    }
-
-    if(botaoClicado.classList.contains("concluiTarefa")) { 
-
-        elementoPai.classList.toggle("tarefaCompleta"); //Aplica essa classe no elemento pai com a classe "concluiTarefa" que foi interagido.
-        
-        const iconeBotaoClicado = botaoClicado.querySelector("i");
-        const editaBotaoClicado = elementoPai.querySelector(".editaTarefa");
-        const deletaBotaoClicado = elementoPai.querySelector(".deletaTarefa");
-
-        //As variáveis acima selecionam os elementos de ícone, e botões de edita e exclui tarefa específicos do botão que foi pressionado, para que as mudanças não ocorram em todos os elementos com a classe "concluiTarefa". Essa foi a parte mais dificultosa de entendimento durante a programação do projeto.
-
-        editaBotaoClicado.classList.toggle("hide");
-        deletaBotaoClicado.classList.toggle("hide");
-
-        if (iconeBotaoClicado.classList.contains("fa-check")) {
-
-            iconeBotaoClicado.classList.remove("fa-check");
-            iconeBotaoClicado.classList.add("fa-redo");
-
-        } else {
-
-            iconeBotaoClicado.classList.remove("fa-redo");
-            iconeBotaoClicado.classList.add("fa-check");
-
-        }
-    }
-
-    if (botaoClicado.classList.contains("editaTarefa")) { 
-
-        trocaForm(); //Esconde certos campos e revela o bloco referente a edição da tarefa.
-
-        elementoEditar = botaoClicado.closest("div");
-
-        tituloEditar = elementoPai.querySelector("h4"); 
-        console.log(tituloEditar);
-
-        campoEditaTarefa.value = tituloEditar.innerText;
-
-    }
-
-    if(botaoClicado.id === "cancelaEdit") {
-
-        trocaForm();
-        
-    }
-
-    if(botaoClicado.classList.contains("deletaTarefa")) {  
-
-        const numClasse = elementoPai.classList[1]; //Armazena a segunda classe do elemento pai, nesse caso, sendo a posição/chave da tarefa com o botão clicado. Ex: div.tarefaAtiva.1; numClasse será 1.
-
-        //Tanto o elemento interagido quanto sua chave equivalente no localStorage são excluídos.
-
-        elementoPai.remove();
-        localStorage.removeItem(numClasse); 
-
-    }
-
-
-});
-
-document.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    const entradaEditaTarefa = campoEditaTarefa.value;
-
-    if(entradaEditaTarefa) { //Se campo de edição for preenchido e enviado:
-
-        console.log(entradaEditaTarefa);
-
-        updateTarefa(entradaEditaTarefa, tituloEditar, elementoEditar); //valor digitado e título da tarefa a ser editada. A variável "tituloEditar" foi declarada em um escopo global, tendo seu valor preenchido como o elemento "h3" incluso em "BotaoClicado", caso o botão possuisse a classe "editaTarefa".
-
-        campoEditaTarefa.value = "";
-
-        trocaForm(); //esconde edição e exibe tela normal.
-        
-    }
-
-});
-
-filtro.addEventListener("change", (event) => {
+blocoFiltro.addEventListener("change", (event) => {
 
     opcaoFiltro = event.target.value;
 

@@ -2,6 +2,7 @@ body {
 
     margin: 0px;
     max-height: 100vh;
+    overflow: hidden;
     background: lightblue url(imgs/waterfall.jpg) no-repeat center;    
     background-size: cover;
 }
@@ -103,6 +104,8 @@ button:hover {
 #formInferior {
 
     max-width: 400px;
+    max-height: 350px;
+    overflow-y: scroll;
     margin: auto;
     padding: 15px;
     background-color: rgba(9, 9, 27, 0.342);
